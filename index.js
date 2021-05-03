@@ -29,7 +29,7 @@ const getCookie = (name) => {
   }
 };
 
-(() => {
+const main = () => {
   if (!getCookie('ghostUserID') && !getCookie('ghostStationID')) {
     setup();
   }
@@ -99,4 +99,4 @@ const getCookie = (name) => {
 
   window.location =
     'https://forms.office.com/Pages/ResponsePage.aspx?id=5cDDXNoiuU2Zz34io0bvPEGhD5z2OjhLuRf4EFJZBGlUM1VCQUsySFJOSlgxQU80NkNXM1lBR1pIUS4u';
-})();
+};
