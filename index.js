@@ -10,7 +10,9 @@ const setup = () => {
     if (
       confirm(
         `Estos datos son correctos? \nCLI User ID: ${userID} \nStation Name: ${stationID}`
-      )
+      ) &&
+      userID &&
+      stationID
     ) {
       document.cookie = `ghostUserID=${userID}; expires=Sun, 31 Dec 2022 12:00:00 UTC; secure`;
       document.cookie = `ghostStationID=${stationID}; expires=Sun, 31 Dec 2022 12:00:00 UTC; secure`;
@@ -29,7 +31,7 @@ const getCookie = (name) => {
   }
 };
 
-(() => {
+const main = () => {
   if (!getCookie('ghostUserID') && !getCookie('ghostStationID')) {
     setup();
   }
@@ -39,10 +41,12 @@ const getCookie = (name) => {
 
   do {
     callID = prompt('Inserta el Call ID a reportar:');
-    if (callID.length === 10) {
+    if (callID.length === 10 && callID.match(/[a-z]/gi) === null) {
       bool = true;
     } else {
-      alert('El call ID consta de 10 digitos');
+      alert(
+        'El call ID consta de 10 digitos y no puede contener un valor alfanumérico'
+      );
     }
   } while (!bool);
 
@@ -93,10 +97,11 @@ const getCookie = (name) => {
       }
     } catch (err) {
       console.log(`Este sitio no cuenta con un formulario. ${err}`);
+      return;
     }
   }
-  // document.querySelector('.__submit-button__').click(); // Don't uncomment this line
+  // document.querySelector('.__submit-button__').click(); // Don't uncomment this line while debugging
 
-  window.location =
-    'https://forms.office.com/Pages/ResponsePage.aspx?id=5cDDXNoiuU2Zz34io0bvPEGhD5z2OjhLuRf4EFJZBGlUM1VCQUsySFJOSlgxQU80NkNXM1lBR1pIUS4u';
-})();
+  // window.location =
+  //   'https://forms.office.com/Pages/ResponsePage.aspx?id=5cDDXNoiuU2Zz34io0bvPEGhD5z2OjhLuRf4EFJZBGlUM1VCQUsySFJOSlgxQU80NkNXM1lBR1pIUS4u'; // Nor this one
+};
