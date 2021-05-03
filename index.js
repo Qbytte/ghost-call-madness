@@ -31,27 +31,9 @@ const getCookie = (name) => {
   }
 };
 
-const main = () => {
-  if (!getCookie('ghostUserID') && !getCookie('ghostStationID')) {
-    setup();
-  }
-
-  let callID;
-  let bool;
-
-  do {
-    callID = prompt('Inserta el Call ID a reportar:');
-    if (callID.length === 10 && callID.match(/[a-z]/gi) === null) {
-      bool = true;
-    } else {
-      alert(
-        'El call ID consta de 10 digitos y no puede contener un valor alfanumérico'
-      );
-    }
-  } while (!bool);
-
-  let userID = getCookie('ghostUserID');
-  let stationID = getCookie('ghostStationID');
+const submitData = (callID) => {
+  const userID = getCookie('ghostUserID');
+  const stationID = getCookie('ghostStationID');
 
   const form = {
     boxUserID: 'r9cfb39c2e81a408bb43a35038f95fd5c',
@@ -63,13 +45,13 @@ const main = () => {
     boxDetails: 'r4cfd057baebc4cf8a7fa89e5d478a639',
   };
 
-  const date = new Date();
+  const d = new Date();
 
   let data = {
     boxUserID: userID,
     boxStationID: stationID,
-    boxDate: `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`,
-    boxTime: `${date.getHours()}:${date.getMinutes()}`,
+    boxDate: `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`,
+    boxTime: `${d.getHours()}:${d.getMinutes()}`,
     boxCallID: callID,
     dropIncident: '',
     boxDetails:
@@ -105,3 +87,65 @@ const main = () => {
   // window.location =
   //   'https://forms.office.com/Pages/ResponsePage.aspx?id=5cDDXNoiuU2Zz34io0bvPEGhD5z2OjhLuRf4EFJZBGlUM1VCQUsySFJOSlgxQU80NkNXM1lBR1pIUS4u'; // Nor this one
 };
+
+const updateCredentials = () => {
+  const userID = getCookie('ghostUserID');
+  const stationID = getCookie('ghostStationID');
+
+  const userSpan = document.querySelector('#js-userID');
+  const stationSpan = document.querySelector('#js-stationID');
+
+  userSpan.textContent = userID;
+  stationSpan.textContent = stationID;
+};
+
+const init = () => {
+  if (!getCookie('ghostUserID') && !getCookie('ghostStationID')) {
+    setup();
+  }
+
+  const app = `
+    <div class="container">
+      <h1>Ghost call madness</h1>
+      <div class="creds-showcase">
+        <strong>CLI user: </strong><span id="js-userID"></span>
+        <strong>Station ID: </strong><span id="js-stationID"></span>
+      </div>
+      <button class="button" id="creds-btn">Change credentials</button>
+      <div class="call-form">
+        <label for="call-id">Call ID: </label>
+        <input
+          class="input"
+          type="text"
+          name="call-id"
+          id="call-id"
+          maxlength="10"
+          autocomplete="off"
+        />
+        <button type="button" class="button" id="submit-btn">Submit ID</button>
+      </div>
+    </div>
+  `;
+
+  const header = document.querySelector('.office-form-title');
+  header.innerHTML += app;
+
+  updateCredentials();
+
+  document.querySelector('#creds-btn').addEventListener('click', () => {
+    setup();
+    updateCredentials();
+  });
+  document.querySelector('#submit-btn').addEventListener('click', () => {
+    let id = document.querySelector('#call-id').value;
+    id = id.replace(' ', '');
+
+    if (id.length === 10 && id.match(/[a-z]/gi) === null) {
+      submitData(id);
+    }
+  });
+};
+
+(() => {
+  setTimeout(init, 1000);
+})();
