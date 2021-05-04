@@ -5,31 +5,35 @@
   --font: 'Segoe UI', sans-serif;
 }
 
-.container {
-  border-radius: 15px;
-  font-size: 18px;
+html {
+  font-size: 62.5%;
   font-family: var(--font);
   font-weight: 400;
   background: var(--bg);
   color: var(--font-color);
 }
 
+.container {
+  border-radius: 15px;
+  font-size: 1.8rem;
+}
+
 .button,
 .input[type='text'] {
-  width: 100%;
   outline: none;
   border: none;
   padding: 5px 10px;
   font-family: var(--font);
-  font-size: 14px;
+  font-size: 1.4rem;
   letter-spacing: 0.05rem;
   color: var(--bg);
 }
 
 .button {
+  width: 100%;
   border-radius: 15px;
   cursor: pointer;
-  transition: background 100ms;
+  transition: background 150ms;
 }
 
 .button:hover {
@@ -37,22 +41,20 @@
 }
 
 .input[type='text'] {
+  width: 90%;
   border-radius: 5px;
-}
-
-.inactive {
-  display: none;
 }
 
 .container {
   min-width: 300px;
   max-width: 300px;
-  max-height: fit-content;
+  min-height: 310px;
+  max-height: 310px;
   padding: 15px;
 }
 
 .container h1 {
-  font-size: 24px;
+  font-size: 2.4rem;
   text-align: center;
 }
 
