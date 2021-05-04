@@ -70,7 +70,6 @@ const submitData = (callID) => {
           const textarea = document.querySelector(
             `.office-form-textfield textarea`
           );
-          textarea.focus();
           textarea.value = data[q];
           break;
         case 'dropIncident':
@@ -83,7 +82,6 @@ const submitData = (callID) => {
           const input = document.querySelector(
             `[aria-labelledby="QuestionId_${form[q]}"] input`
           );
-          input.focus();
           input.value = data[q];
       }
     } catch (err) {
