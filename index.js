@@ -67,7 +67,10 @@ const submitData = (callId) => {
     !localStorage.getItem('ghostUserID') &&
     !localStorage.getItem('ghostStationID')
   ) {
-    setup();
+    setTimeout(() => {
+      setup();
+      updateCredentials();
+    }, 120);
   }
   updateCredentials();
 
