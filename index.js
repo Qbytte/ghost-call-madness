@@ -4,12 +4,12 @@ const setup = () => {
   let bool;
 
   do {
-    userID = prompt('Inserta tu CLI user:');
-    stationID = prompt('Inserta tu station name:');
+    userID = prompt('Insert your DM:');
+    stationID = prompt('Insert your station name:');
 
     if (
       confirm(
-        `¿Estos datos son correctos? \nCLI User ID: ${userID} \nStation Name: ${stationID}`
+        `Is this information correct? \nCLI User ID: ${userID} \nStation Name: ${stationID}`
       ) &&
       userID &&
       stationID
@@ -18,9 +18,7 @@ const setup = () => {
       localStorage.setItem('ghostStationID', stationID);
       bool = true;
     } else {
-      if (!confirm('¿Quieres ingrasar los datos nuevamente?')) {
-        bool = true;
-      }
+      alert('Insert the information again please')
     }
   } while (!bool);
 };
@@ -52,9 +50,9 @@ const submitData = (callId) => {
 
   const date = `${yr}-${mo}-${da}`;
   let hour;
-  if(mn <= 9){
-    hour = `${hr}:0${mn}`;  
-  }else{
+  if (mn <= 9) {
+    hour = `${hr}:0${mn}`;
+  } else {
     hour = `${hr}:${mn}`;
   }
   const desc = 'Nobody was on the line.';
@@ -92,7 +90,7 @@ const submitData = (callId) => {
       submitData(id);
     } else {
       alert(
-        'El call ID consta de 10 digitos y no puede contener un valor alfanumérico'
+        'The call ID is a 10 digit long number and can not contain an alphanumeric value'
       );
     }
   });
